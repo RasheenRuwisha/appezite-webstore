@@ -21,11 +21,6 @@ const Category = (props) => {
                         {props.product.name}
                     </Typography>
                     </CardContent>
-                    {/* <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-      </CardActions> */}
                 </Card>
             ) : null}
             </Link>

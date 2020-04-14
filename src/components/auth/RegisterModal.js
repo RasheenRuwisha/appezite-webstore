@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import PropType from 'prop-types'
 import { register } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
+import ReactLoading from 'react-loading';
 
 class RegisterModal extends Component {
   state = {
@@ -22,7 +23,9 @@ class RegisterModal extends Component {
     name: '',
     email:'',
     password:'',
+    phone:'',
     msg:null,
+    processing:false
   };
 
   static propTypes = {
@@ -38,6 +41,7 @@ class RegisterModal extends Component {
   componentDidUpdate(previousProps){
     const { error, isAuthenticated } = this.props;
     if(error != previousProps.error){
+      this.setState({processing:false})
         if(error.id === 'REGISTER_FAIL'){
             this.setState({ msg: error.msg.msg })
         }else{
@@ -48,6 +52,7 @@ class RegisterModal extends Component {
     if(this.state.modal){
       if(isAuthenticated){
         this.toggle();
+        this.setState({processing:false})
       }
     }
   }
@@ -66,16 +71,17 @@ class RegisterModal extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    const { email, password, name } = this.state
+    const { email, password, name, phone } = this.state
     const businessId = this.props.business.business.businessId
 
     const newUser = {
         businessId,
         email,
         name,
+        phone,
         password
     }
-    
+    this.setState({processing:true})
     this.props.register(newUser);
 
   };
@@ -118,6 +124,16 @@ class RegisterModal extends Component {
                   onChange={this.onChange}
                 />
 
+                <Label for='email'>Phone</Label>
+                <Input
+                  type='text'
+                  name='phone'
+                  id='phone'
+                  className='mb-3'
+                  placeholder='Phone'
+                  onChange={this.onChange}
+                />
+
                 <Label for='password'>Password</Label>
                 <Input
                   type='password'
@@ -129,9 +145,16 @@ class RegisterModal extends Component {
                 />
 
 
-                <Button color='dark' style={{ marginTop: '2rem' }} block>
+                {
+                  this.state.processing?
+                  <div style={{display:'flex', justifyContent:'center'}}>
+                            <ReactLoading type="balls" color="#000"/>
+                        </div>:
+<Button color='dark' style={{ marginTop: '2rem' }} block>
                   Register
                 </Button>
+                }
+                
               </FormGroup>
             </Form>
           </ModalBody>

@@ -30,3 +30,5 @@ export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 
 export const GET_ORDERS = 'GET_ORDERS';
 export const ORDERS_LOADED = 'ORDERS_LOADED';
+export const INVALID_URL = 'INVALID_URL';
+export const NOTIFICATION_TOKEN = "NOTIFICATION_TOKEN";

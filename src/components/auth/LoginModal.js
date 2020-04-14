@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import PropType from 'prop-types'
 import { login  } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
+import ReactLoading from 'react-loading';
 
 class Login extends Component {
   state = {
@@ -22,6 +23,7 @@ class Login extends Component {
     email:'',
     password:'',
     msg:null,
+    processing:false
   };
 
   static propTypes = {
@@ -37,6 +39,7 @@ class Login extends Component {
   componentDidUpdate(previousProps){
     const { error, isAuthenticated } = this.props;
     if(error != previousProps.error){
+      this.setState({processing:false})
         if(error.id === 'LOGIN_FAIL'){
             this.setState({ msg: error.msg.msg })
         }else{
@@ -46,6 +49,7 @@ class Login extends Component {
 
     if(this.state.modal){
       if(isAuthenticated){
+        this.setState({processing:false})
         this.toggle();
       }
     }
@@ -82,7 +86,8 @@ class Login extends Component {
         email,
         password
     }
-    
+
+    this.setState({processing:true})
     this.props.login(newUser);
 
   };
@@ -126,9 +131,15 @@ class Login extends Component {
                 />
 
 
-                <Button color='dark' style={{ marginTop: '2rem' }} block>
+{
+                  this.state.processing?
+                  <div style={{display:'flex', justifyContent:'center'}}>
+                            <ReactLoading type="balls" color="#000"/>
+                        </div>:
+<Button color='dark' style={{ marginTop: '2rem' }} block>
                   Login
                 </Button>
+                }
               </FormGroup>
             </Form>
           </ModalBody>

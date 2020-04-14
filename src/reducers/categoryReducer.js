@@ -1,4 +1,4 @@
-import { GET_CATEGORY, DELETE_CART, ITEMS_LOADING } from '../actions/types';
+import { GET_CATEGORY, DELETE_CART, ITEMS_LOADING,INVALID_URL } from '../actions/types';
 
 
 
@@ -24,7 +24,12 @@ export default function (state = initialState, action){
             return{
                 ...state,
                 loading:true
-            }        
+            }   
+            case INVALID_URL:
+                return{
+                    ...state,
+                    loading:false
+                }          
         default:
             return state 
     }

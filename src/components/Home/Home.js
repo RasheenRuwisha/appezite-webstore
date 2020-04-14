@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux';
-import {getBusiness} from '../actions/businessActions';
-import {getCategories} from '../actions/categoryActions';
+import {getBusiness} from '../../actions/businessActions';
+import {getCategories} from '../../actions/categoryActions';
 import './Home.css';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';

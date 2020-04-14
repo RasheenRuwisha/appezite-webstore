@@ -24,7 +24,6 @@ import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import {fi} from 'date-fns/locale';
 class Address extends Component {
- 
 
     state = {
         modal: false,

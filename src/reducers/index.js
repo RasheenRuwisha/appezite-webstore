@@ -6,6 +6,7 @@ import errorReducer from './errorReducer';
 import authReducer from './authReducer';
 import cartReducer from './cartReducer';
 import orderReducer from './orderReducer';
+import {reducer as toastrReducer} from 'react-redux-toastr'
 
 export default combineReducers({
     categories: categoryReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
     error: errorReducer,
     auth:authReducer,
     cart:cartReducer,
-    orders:orderReducer
+    orders:orderReducer,
+    toastr: toastrReducer // <- Mounted at toastr.
 })

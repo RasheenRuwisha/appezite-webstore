@@ -1,0 +1,29 @@
+*, body, html{
+}
+
+.textContainer{
+    width: 100%;
+    height: 100%;
+}
+
+.msgBox{
+    padding: 30px;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%,-20%);
+    width: 50%;
+    height: auto;
+    border: 2px solid black;
+    text-align: center;
+    background: #F1F1F1;
+}
+
+.errorText{
+    padding-top: 30px;
+}
+
+iframe
+{
+    display: none;
+}

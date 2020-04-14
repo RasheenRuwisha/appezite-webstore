@@ -6,27 +6,23 @@ import {
     ModalBody,
     Form,
     FormGroup,
-    Label,
-    Input,
-    NavLink,
     Alert
 } from 'reactstrap';
-import './Home.css';
+import '../Home/Home.css';
 import {connect} from 'react-redux';
 import PropType from 'prop-types'
-import {login} from '../actions/authActions';
-import {clearErrors} from '../actions/errorActions';
-import {addToCart} from '../actions/cartActions';
+import {login} from '../../actions/authActions';
+import {clearErrors} from '../../actions/errorActions';
+import {addToCart} from '../../actions/cartActions';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import IconButton from '@material-ui/core/IconButton'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormLabel from '@material-ui/core/FormLabel';
 import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
+import {toastr} from 'react-redux-toastr'
 
 class AddToCartModal extends Component {
     state = {
@@ -40,7 +36,8 @@ class AddToCartModal extends Component {
         checkboxesValue: [],
         checkBoxMax: [],
         varPrice: 0,
-        varName: null
+        varName: null,
+        totalAddonsPrice: 0
     };
 
     static propTypes = {
@@ -54,7 +51,7 @@ class AddToCartModal extends Component {
     }
 
     componentDidUpdate(previousProps) {
-        const {error, isAuthenticated} = this.props;
+        const {error, isAuthenticated, product} = this.props;
         if (error != previousProps.error) {
             if (error.id === 'LOGIN_FAIL') {
                 this.setState({msg: error.msg.msg})
@@ -63,11 +60,17 @@ class AddToCartModal extends Component {
             }
         }
 
+        if(product != previousProps.product){
+            this.initModal();
+        }
+
     }
 
-    componentDidMount() {
+    // init the modal with the product details
+    initModal() {
         var addons = this.props.product.addons;
         let max = [];
+        // loop though addons and create a new list with the max number allowed and mandatory checks
         for (let i = 0; i < addons.length; i++) {
             let checkBoxMax = {
                 name: addons[i].name,
@@ -77,12 +80,12 @@ class AddToCartModal extends Component {
             }
             max.push(checkBoxMax);
         }
-        console.log(max);
 
         this.setState({checkBoxMax: max})
         var price = 0;
         var varPrice = 0;
         var name = null;
+        // check for the variants and set the prize of the first variant if it exists
         if (this.props.product.variant.variants.length > 0) {
             price = this.props.product.variant.variants[0].price;
             varPrice = this.props.product.variant.variants[0].price;
@@ -91,6 +94,10 @@ class AddToCartModal extends Component {
             price = this.props.product.price
         }
         this.setState({modal: this.props.modal, price: price, initPrice: this.props.product.price, varName: name, varPrice: varPrice});
+    }
+
+    componentDidMount() {
+        this.initModal();
     }
 
     toggle = () => {
@@ -104,11 +111,13 @@ class AddToCartModal extends Component {
 
     incrementCount = () => {
         let price = 0;
+        // get the current price and increase the price with the count
         if (this.state.varPrice === 0) {
-            price = parseInt(this.state.price) + parseInt(this.state.initPrice)
+            price = parseFloat(this.state.price) + parseFloat(this.state.initPrice)
         } else {
-            price = parseInt(this.state.price) + parseInt(this.state.varPrice)
+            price = parseFloat(this.state.price) + parseFloat(this.state.varPrice)
         }
+        price = price + this.state.totalAddonsPrice;
         this.setState({
             value: this.state.value + 1,
             price: price
@@ -116,13 +125,15 @@ class AddToCartModal extends Component {
     }
 
     decrementCount = () => {
+        // get the current price and increase the price with the count
         if (this.state.value > 1) {
             let price = 0;
             if (this.state.varPrice === 0) {
-                price = parseInt(this.state.price) - parseInt(this.state.initPrice)
+                price = parseFloat(this.state.price) - parseFloat(this.state.initPrice)
             } else {
-                price = parseInt(this.state.price) - parseInt(this.state.varPrice)
+                price = parseFloat(this.state.price) - parseFloat(this.state.varPrice)
             }
+            price = price - this.state.totalAddonsPrice;
             this.setState({
                 value: this.state.value - 1,
                 price: price
@@ -136,6 +147,7 @@ class AddToCartModal extends Component {
         });
     };
 
+    // submit item to add to cart
     onSubmit = e => {
         e.preventDefault();
         let msg = null;
@@ -154,6 +166,7 @@ class AddToCartModal extends Component {
         if (msg === null) {
             e.preventDefault();
 
+            // create new car item
             var cartItem = {
                 name: this.props.product.name,
                 image: this.props.product.image,
@@ -166,16 +179,31 @@ class AddToCartModal extends Component {
             this
                 .props
                 .addToCart(cartItem)
-            console.log(cartItem)
             for (let i = 0; i < checkBoxMax.length; i++) {
                 checkBoxMax[i].current = 0;
             }
-            this.setState({checkBoxMax:checkBoxMax})
-
+            this.setState({checkBoxMax: checkBoxMax})
+            this.setState({
+                modal: false,
+                email: '',
+                password: '',
+                msg: null,
+                value: 1,
+                price: 0,
+                initPrice: 0,
+                checkboxesValue: [],
+                checkBoxMax: [],
+                varPrice: 0,
+                varName: null,
+                totalAddonsPrice: 0
+            })
+            this.initModal();
+            toastr.success('Cart', 'The product was added to the cart successfully');
             this.toggle();
         }
     };
 
+    // function to update addons list when chedked
     addCheckboxesValue = (event, parentAddon, childAddon) => {
         let price = this.state.price;
         let value = {
@@ -183,23 +211,30 @@ class AddToCartModal extends Component {
             child: childAddon.name,
             price: childAddon.price
         }
-        const {checkboxesValue} = this.state // The state in our class
+        const {checkboxesValue} = this.state
         let updatedCheckboxesValue = [...checkboxesValue];
         let checkBoxMax = this.state.checkBoxMax;
+        // find the checkmax object with the parentAddon Name and child name
         let obj = updatedCheckboxesValue.find(x => x.parent === parentAddon && x.child === childAddon.name);
         let index = updatedCheckboxesValue.indexOf(obj);
-
+        // find the checkmax object with the parentAddon Name
         let obj1 = checkBoxMax.find(x => x.name === parentAddon);
 
+        let totalAddonPrice = this.state.totalAddonsPrice;
+
+        // check wether the number of max allowed addons are used
         if (obj1.max > obj1.current) {
+            // remove item from list if the index is less than -1
             if (index > -1) {
                 obj1.current--;
                 updatedCheckboxesValue.splice(index, 1);
-                price = parseInt(this.state.price) - parseInt(childAddon.price)
+                price = parseFloat(this.state.price) - (parseFloat(childAddon.price) * parseFloat(this.state.value))
+                totalAddonPrice = parseFloat(totalAddonPrice) - parseFloat(childAddon.price)
             } else {
+                // add item to addon list
                 obj1.current++;
-                price = parseInt(this.state.price) + parseInt(childAddon.price)
-
+                price = parseFloat(this.state.price) + (parseFloat(childAddon.price) * parseFloat(this.state.value))
+                totalAddonPrice = parseFloat(totalAddonPrice) + parseFloat(childAddon.price)
                 updatedCheckboxesValue = [
                     ...checkboxesValue,
                     value
@@ -209,29 +244,31 @@ class AddToCartModal extends Component {
             if (index > -1) {
                 obj1.current--;
                 updatedCheckboxesValue.splice(index, 1);
-                price = parseInt(this.state.price) - parseInt(childAddon.price)
+                price = parseFloat(this.state.price) - (parseFloat(childAddon.price) * parseFloat(this.state.value))
+                totalAddonPrice = parseFloat(totalAddonPrice) - parseFloat(childAddon.price)
             }
             event.target.checked = false;
             event.stopPropagation();
         }
 
-        this.setState({checkboxesValue: updatedCheckboxesValue, price: price, checkBoxMax: checkBoxMax})
+        this.setState({checkboxesValue: updatedCheckboxesValue, price: price, checkBoxMax: checkBoxMax, totalAddonsPrice: totalAddonPrice})
 
     }
 
     handleChange = () => event => {
         var index = event.nativeEvent.target.selectedIndex;
 
-        var price = parseInt(this.state.price)
-        var varPrice = parseInt(this.state.varPrice);
+        var price = parseFloat(this.state.price)
+        var varPrice = parseFloat(this.state.varPrice);
         var varName = event.nativeEvent.target[index].text
-        price = parseInt(price) - (parseInt(varPrice) * this.state.value);
-        price = parseInt(price) + (parseInt(event.target.value) * this.state.value);
+        price = parseFloat(price) - (parseFloat(varPrice) * this.state.value);
+        price = parseFloat(price) + (parseFloat(event.target.value) * this.state.value);
 
-        varPrice = parseInt(event.target.value);
+        varPrice = parseFloat(event.target.value);
         this.setState({varPrice: varPrice, varName: varName, price: price})
     };
 
+    // render variants as a dropdown
     renderVariant() {
         let variant = this.props.product.variant
         let variantOptions = []
@@ -262,6 +299,7 @@ class AddToCartModal extends Component {
         return variantRender;
     }
 
+    // render the addons
     renderAddons() {
         let addonsRender = [];
         let addons = this.props.product.addons
@@ -282,7 +320,7 @@ class AddToCartModal extends Component {
                         control={< Checkbox false value = {
                         addons[i].addons[z].name
                     } />}
-                        label={`${addons[i].addons[z].name} ${addons[i].addons[z].price} `}/>
+                        label={`${addons[i].addons[z].name} ${ (Math.round(addons[i].addons[z].price * 100) / 100).toFixed(2)} `}/>
                 )
             }
             addonsRender.push(
@@ -324,17 +362,29 @@ class AddToCartModal extends Component {
                                     {this.renderAddons()}
                                 </div>
 
+                                <p>Quantity</p>
                                 <div className="qty-input">
                                     <i className="less" onClick={this.decrementCount}>-</i>
                                     <input type="text" value={this.state.value}/>
                                     <i className="more" onClick={this.incrementCount}>+</i>
                                 </div>
-                                <p>{this.state.price}</p>
+                                <p></p>
+
+                                <Button
+                                    disabled
+                                    color='dark'
+                                    style={{
+                                    textAlign: 'left',
+                                    marginTop: '2rem'
+                                }}
+                                    block>
+                                    {`Total Price : ${ (Math.round(this.state.price * 100) / 100).toFixed(2)}`}
+                                </Button>
 
                                 <Button
                                     color='dark'
                                     style={{
-                                    marginTop: '2rem'
+                                    background: this.props.business.business.theme.dark
                                 }}
                                     block>
                                     Add To Cart

@@ -1,32 +1,30 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {connect} from 'react-redux';
-import {getBusiness} from '../actions/businessActions';
-import {getCategories} from '../actions/categoryActions';
-import PropTypes from 'prop-types';
-import Navbar from './Navbar';
+import {getProducts} from '../../actions/productActions';
 import Grid from '@material-ui/core/Grid';
-import Category from './Category';
+import Product from './Product'
+import '../Home/Home.css';
+import Navbar from '../NavBar/Navbar';
 
-class Categories extends Component {
+class Products extends Component {
 
-    state = {
-        categories: [],
-        initCategories: [],
-        searchString: ''
+    constructor() {
+        super()
     }
 
     componentDidMount() {
-        this.setState({categories: this.props.categories.categories, initCategories: this.props.categories.categories})
+        this
+            .props
+            .getProducts(this.props.business.business.businessId, this.props.business.business.email, this.props.match.params.catid)
+
     }
-    
+
     render() {
         return (
             <div style={{
                 textAlign: "center"
             }}>
-                <Navbar business={this.props.business} page="Category"/>
-                
-                {this.state.categories.length > 0
+                <Navbar business={this.props.business}/> {this.props.products.products.length > 0
                     ? (
                         <div>
 
@@ -42,9 +40,10 @@ class Categories extends Component {
                                 padding: 24
                             }}>
                                 {this
-                                    .state
-                                    .categories
-                                    .map(currentCategory => (currentCategory.visibility
+                                    .props
+                                    .products
+                                    .products
+                                    .map(currentProduct => (currentProduct.visibility
                                         ? <Grid
                                                 item
                                                 xs={12}
@@ -54,9 +53,9 @@ class Categories extends Component {
                                                 style={{
                                                 padding: 24
                                             }}>
-                                                <Category
+                                                <Product
                                                     businessId={this.props.business.business.businessId}
-                                                    product={currentCategory}/>
+                                                    product={currentProduct}/>
                                             </Grid>
                                         : null))}
                             </Grid>
@@ -64,22 +63,13 @@ class Categories extends Component {
                     )
                     : <div>
 
-                        <p>No categories found</p>
+                        <p>No products found</p>
                     </div>}
             </div>
         )
-
     }
-
-}
-
-Categories.propTypes = {
-    getCategories: PropTypes.func.isRequired,
-    categories: PropTypes.object.isRequired,
-    products: PropTypes.object.isRequired,
-    business: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({categories: state.categories, business: state.business, products: state.products})
 
-export default connect(mapStateToProps, { getCategories, getBusiness })(Categories);
+export default connect(mapStateToProps, {getProducts})(Products);

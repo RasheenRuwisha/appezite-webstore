@@ -18,21 +18,16 @@ import {
     NavLink,
     Container
 } from 'reactstrap';
-import LoginModal from './auth/LoginModal';
-import { Icon } from '@material-ui/core'
-import AddtoCartLogin from './auth/AddtoCartLogin'
-import AddToCartModal from './AddToCartModal'
+import LoginModal from '../auth/LoginModal';
+import {Icon} from '@material-ui/core'
+import AddtoCartLogin from '../auth/AddtoCartLogin'
+import AddToCartModal from '../AddToCartModal/AddToCartModal'
 
 class Product extends Component {
 
-
-
     render() {
         return (
-            <Link
-                to={{
-                pathname: `/${this.props.businessId}/categories/${this.props.product.categoryId}`
-            }}>
+            <Link>
                 {this.props.product.visibility
                     ? (
                         <Card
@@ -46,21 +41,20 @@ class Product extends Component {
                                     paddingTop: '56.25%'
                                 }}
                                     image={this.props.product.image}
-                                    title={this.props.product.name}/>
+                                    title={`${this.props.product.name} - ${this.props.product.price}`}/>
                             </Link>
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="h5">
-                                    {this.props.product.name}
+                                    {`${this.props.product.name} - LKR ${ (Math.round(this.props.product.price * 100) / 100).toFixed(2)}`}
                                 </Typography>
                             </CardContent>
                             <CardActions disableSpacing>
                                 {this.props.auth.isAuthenticated
                                     ? <IconButton aria-label="add to favorites">
-                                        <AddToCartModal product={this.props.product}/>
+                                            <AddToCartModal product={this.props.product}/>
                                         </IconButton>
-                                    : 
-                                    <IconButton>
-                                    <AddtoCartLogin />
+                                    : <IconButton>
+                                        <AddtoCartLogin/>
                                     </IconButton>
 }
 

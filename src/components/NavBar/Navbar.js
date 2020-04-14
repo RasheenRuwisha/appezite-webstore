@@ -10,12 +10,12 @@ import {
     Container
 } from 'reactstrap';
 import {Link} from 'react-router-dom';
-import RegisterModal from './auth/RegisterModal';
-import Logout from './auth/Logout';
-import LoginModal from './auth/LoginModal';
+import RegisterModal from '../auth/RegisterModal';
+import Logout from '../auth/Logout';
+import LoginModal from '../auth/LoginModal';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import DrawerComponent from './DrawerComponent';
+import DrawerComponent from '../CartComponent/DrawerComponent';
 
 class AppNavbar extends Component {
 

@@ -1,0 +1,90 @@
+Date : 2020-03-20 13:48:00
+Directory : /Users/rasheenruwisha/final-year-proj/web-re/webstore
+Total : 53 files,  19142 codes, 69 comments, 492 blanks, all 19703 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          4 |     14,861 |          0 |          3 |     14,864 |
+| JavaScript |         39 |      3,268 |         46 |        425 |      3,739 |
+| XML        |          6 |        771 |          0 |          0 |        771 |
+| CSS        |          2 |        179 |          0 |         31 |        210 |
+| Markdown   |          1 |         37 |          0 |         32 |         69 |
+| HTML       |          1 |         26 |         23 |          1 |         50 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                               | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                  |         53 |     19,142 |         69 |        492 |     19,703 |
+| .idea                                                                                              |          6 |        771 |          0 |          0 |        771 |
+| .idea/inspectionProfiles                                                                           |          1 |          6 |          0 |          0 |          6 |
+| public                                                                                             |          2 |         51 |         23 |          2 |         76 |
+| src                                                                                                |         41 |      3,447 |         46 |        456 |      3,949 |
+| src/actions                                                                                        |          8 |        325 |          0 |         57 |        382 |
+| src/components                                                                                     |         17 |      2,636 |          8 |        338 |      2,982 |
+| src/components/auth                                                                                |          4 |        422 |          0 |         73 |        495 |
+| src/reducers                                                                                       |          8 |        286 |          0 |         22 |        308 |
++----------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                           | language   | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/.idea/inspectionProfiles/Project_Default.xml | XML        |          6 |          0 |          0 |          6 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/.idea/misc.xml                               | XML        |          9 |          0 |          0 |          9 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/.idea/modules.xml                            | XML        |          8 |          0 |          0 |          8 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/.idea/vcs.xml                                | XML        |          6 |          0 |          0 |          6 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/.idea/webstore.iml                           | XML        |         12 |          0 |          0 |         12 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/.idea/workspace.xml                          | XML        |        730 |          0 |          0 |        730 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/Local Fabric - Org1_connection.json          | JSON       |         37 |          0 |          0 |         37 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/README.md                                    | Markdown   |         37 |          0 |         32 |         69 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/package-lock.json                            | JSON       |     14,744 |          0 |          1 |     14,745 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/package.json                                 | JSON       |         55 |          0 |          1 |         56 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/public/index.html                            | HTML       |         26 |         23 |          1 |         50 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/public/manifest.json                         | JSON       |         25 |          0 |          1 |         26 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/App.css                                  | CSS        |          6 |          0 |          1 |          7 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/App.js                                   | JavaScript |         68 |          0 |         14 |         82 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/App.test.js                              | JavaScript |          8 |          0 |          2 |         10 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/actions/authActions.js                   | JavaScript |         76 |          0 |         12 |         88 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/actions/businessActions.js               | JavaScript |         22 |          0 |          3 |         25 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/actions/cartActions.js                   | JavaScript |        107 |          0 |         16 |        123 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/actions/categoryActions.js               | JavaScript |         19 |          0 |          4 |         23 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/actions/errorActions.js                  | JavaScript |         12 |          0 |          2 |         14 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/actions/orderActions.js                  | JavaScript |         29 |          0 |          8 |         37 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/actions/productActions.js                | JavaScript |         33 |          0 |          6 |         39 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/actions/types.js                         | JavaScript |         27 |          0 |          6 |         33 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/components/AddToCartModal.js             | JavaScript |        341 |          0 |         36 |        377 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/components/AddressModal.js               | JavaScript |        193 |          0 |         21 |        214 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/components/Categories.js                 | JavaScript |         73 |          0 |         12 |         85 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/components/Category.js                   | JavaScript |         30 |          3 |          2 |         35 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/components/DrawerComponent.js            | JavaScript |        798 |          0 |         91 |        889 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/components/Home.css                      | CSS        |        173 |          0 |         30 |        203 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/components/Home.js                       | JavaScript |         69 |          0 |         14 |         83 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/components/Navbar.js                     | JavaScript |        128 |          5 |         13 |        146 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/components/Orders.js                     | JavaScript |         80 |          0 |          8 |         88 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/components/PayPalButton.js               | JavaScript |         82 |          0 |          6 |         88 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/components/Product.js                    | JavaScript |         71 |          0 |          9 |         80 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/components/ProductDetails.js             | JavaScript |        110 |          0 |         13 |        123 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/components/Products.js                   | JavaScript |         66 |          0 |         10 |         76 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/components/auth/AddtoCartLogin.js        | JavaScript |        127 |          0 |         23 |        150 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/components/auth/LoginModal.js            | JavaScript |        129 |          0 |         23 |        152 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/components/auth/Logout.js                | JavaScript |         20 |          0 |          6 |         26 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/components/auth/RegisterModal.js         | JavaScript |        146 |          0 |         21 |        167 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/index.js                                 | JavaScript |         12 |          3 |          3 |         18 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/properties.js                            | JavaScript |          1 |          0 |          1 |          2 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/reducers/authReducer.js                  | JavaScript |         55 |          0 |          2 |         57 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/reducers/businessReducer.js              | JavaScript |         22 |          0 |          4 |         26 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/reducers/cartReducer.js                  | JavaScript |         91 |          0 |          2 |         93 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/reducers/categoryReducer.js              | JavaScript |         27 |          0 |          4 |         31 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/reducers/errorReducer.js                 | JavaScript |         24 |          0 |          1 |         25 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/reducers/index.js                        | JavaScript |         17 |          0 |          1 |         18 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/reducers/orderReducer.js                 | JavaScript |         22 |          0 |          4 |         26 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/reducers/productReducer.js               | JavaScript |         28 |          0 |          4 |         32 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/serviceWorker.js                         | JavaScript |         94 |         31 |         13 |        138 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/setupTests.js                            | JavaScript |          1 |          4 |          1 |          6 |
+| /Users/rasheenruwisha/final-year-proj/web-re/webstore/src/store.js                                 | JavaScript |         10 |          0 |          4 |         14 |
+| Total                                                                                              |            |     19,142 |         69 |        492 |     19,703 |
++----------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

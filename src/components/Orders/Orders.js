@@ -7,13 +7,13 @@ import CardActions from '@material-ui/core/CardActions'
 import IconButton from '@material-ui/core/IconButton'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import {connect} from 'react-redux';
-import {loadOrders} from '../actions/orderActions';
+import {loadOrders} from '../../actions/orderActions';
 import ReactLoading from 'react-loading';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Navbar from './Navbar';
+import Navbar from '../NavBar/Navbar';
 
 class Orders extends Component {
 
@@ -29,16 +29,18 @@ class Orders extends Component {
             let orderProducts = [];
             for (let z = 0; z < orders[i].products.length; z++) {
                 orderProducts.push(
-                <p>{orders[i].products[z].name} - {orders[i].products[z].variant === null ? null : orders[i].products[z].variant }</p>
+                    <p>{orders[i].products[z].name}
+                        - {orders[i].products[z].variant === null
+                            ? null
+                            : orders[i].products[z].variant}</p>
                 )
-                for(let x =0;x<orders[i].products[z].addons.length;x++){
+                for (let x = 0; x < orders[i].products[z].addons.length; x++) {
                     orderProducts.push(
                         <p>{orders[i].products[z].addons[x].child}</p>
-                        )
+                    )
                 }
             }
 
-            
             userOrder.push(
                 <ExpansionPanel>
                     <ExpansionPanelSummary
@@ -49,13 +51,21 @@ class Orders extends Component {
                             - {orders[i].status}</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                        <div style={{width:'100%'}}>
+                        <div
+                            style={{
+                            width: '100%'
+                        }}>
                             {orderProducts}
                         </div>
-                        <div style={{width:'100%'}}>
-                        </div>
+                        <div
+                            style={{
+                            width: '100%'
+                        }}></div>
                         <Typography>
                             {orders[i].delveryType}
+                        </Typography>
+                        <Typography>
+                            {orders[i].total}
                         </Typography>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
@@ -65,7 +75,9 @@ class Orders extends Component {
     }
     render() {
         return (
-            <div  style={{backgroundColor:'#dcdfdf'}}>
+            <div style={{
+                backgroundColor: '#dcdfdf'
+            }}>
                 <Navbar business={this.props.business} page="Orders"/> {this.props.orders.loading
                     ? <div className="centerLoader">
                             <ReactLoading type="bars" color="#000"/>
